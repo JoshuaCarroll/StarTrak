@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			
+			$.getJSON( "http://10.1.10.10/supermon/jc_getnodes.php", function( data ) {
+				
+				var arr = $.grep(data.data, function( a ) {
+					return (
+						( a[9] !== "&nbsp" ) && 
+						( 
+							((a[5].endsWith(", AR")) || (a[5].endsWith(", Arkansas"))) 
+							&& (!a[5].endsWith(", Arizona"))
+						)
+					);
+				});
+
+				var nodeTbl = "<table>";
+				for	(var i=0; i < arr.length; i++) {
+					var a = arr[i];
+					$("#nodes").append("<tr><td>" + a[0].toString() + "</td><td>" + a[1] + "</td><td>" + a[5] + "</td></tr>")
+				}
+				nodeTbl += "</table>";
+				
+				$("#data").text(arr.toString());
+			});
+
+		</script>
+		<title></title>
+	</head>
+	<body>
+		<div id="nodes"></div>
+		<textarea id="data" style="width:100%"></textarea>
+	</body>
+</html>
