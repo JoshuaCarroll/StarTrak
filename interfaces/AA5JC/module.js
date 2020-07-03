@@ -4,6 +4,10 @@
 * For more information please go to http://www.lcarssdk.org.
 **/
 
+var uiBorder = ['bg-1'];
+var uiColors = ['bg-2', 'bg-3', 'bg-4', 'bg-3', 'bg-4', 'bg-3', 'bg-4'];
+var uiInactive = ['bg-7', 'bg-8'];
+
 var data = null;
 function getData() {
 	var request = new XMLHttpRequest();
@@ -14,10 +18,18 @@ function getData() {
 			// Success!
 			data = JSON.parse(request.responseText);
 			
+			// Calculate any values
 			data.server.memory.percentAvailable = Math.round((data.server.memory.free / data.server.memory.total) * 100);
-			data.server.cpuusage = Math.round((data.server.cpuusage.split("load average: ")[1].split(", ")[1]) * 100);
+			data.server.cpuusage = Math.round(((data.server.cpuusage.split("load average: ")[1].split(", ")[1]) * 100) / data.server.cores);
 			
-			buildNemesisUi();
+			if (document.body.innerHTML == "") {
+				buildNemesisUi();
+			}
+			
+			// Update the page
+			updateField("Temp: ", "data.server.cputemp.F", "° F");
+			updateField("RAM free: ", "data.server.memory.percentAvailable", "%");
+			updateField("CPU usage: ", "data.server.cpuusage", "%");
 		} else {
 			// We reached our target server, but it returned an error
 		}
@@ -29,26 +41,26 @@ function getData() {
 
 	request.send();
 }
-
+function updateField(prefix, variable, suffix){
+	document.getElementById(variable).setAttribute("data-label", prefix + eval(variable) + suffix); 
+}
 function getStatColor(stat, statValue) {
-	var good = ['bg-blue-1', 'bg-blue-2'];
-	var bad = ['bg-red-1', 'bg-red-2', 'bg-red-3'];
+	var good = ['bg-2'];
+	var bad = ['bg-red-1','bg-red-2'];
 	
 	var rtn = good;
 	
 	if (stat == "temp" && statValue > 170) { rtn = bad; }
 	if (stat == "memory" && statValue < 40) { rtn = bad; }
-	if (stat == "cpu" && statValue > 75) { rtn = bad; }
+	if (stat == "cpu" && statValue > 70) { rtn = bad; }
 	
 	return rtn;
 }
-
 function showAlternateData(objId, altValue) {
 	oldValue = $("#" + objId).attr("data-label");
 	$("#" + objId).attr("data-label", altValue);
 	$("#" + objId).attr("href", 'javascript:showAlternateData("' + objId + '", "' + oldValue + '");');
 }
-
 function toggleFullScreen(event) {
   var element = document.body;
 
@@ -63,8 +75,6 @@ function toggleFullScreen(event) {
 
 	isFullscreen ? document.cancelFullScreen() : element.requestFullScreen();
 }
-
-var uiColors = ['bg-green-1','bg-green-2','bg-green-3','bg-green-4','bg-blue-1','bg-blue-2'];
    
 //Template for the Bracket Element   
 var bracket = {type:'wrapper', class:'sdk bracket typeA', children:[
@@ -114,22 +124,22 @@ function buildNemesisUi() {
 
 				//Top Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left',id:'cpuTemp', label: "Temp: " + data.server.cputemp.F + "° F", href: 'javascript:showAlternateData("cpuTemp", "CPU: " + data.server.cputemp.C + "° C");' },
-					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), id: 'cpuMemory', label: "RAM free: " + data.server.memory.percentAvailable + "%", href: 'javascript:showAlternateData("cpuMemory", "RAM free: " + data.server.memory.free + " MB");' },
-					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), version:'left', label:'CPU: ' + data.server.cpuusage + '%'},
-					{type:'button', color:LCARS.colorGen(uiColors)},
-					{type:'button', color:LCARS.colorGen(uiColors), version:'left'},
-					{type:'button', color:LCARS.colorGen(uiColors), label: "Full screen", href: "javascript:toggleFullScreen();"}            
+					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left', id:'data.server.cputemp.F', label: "Temp: " + data.server.cputemp.F + "° F", href: 'javascript:showAlternateData("cpuTemp", "CPU: " + data.server.cputemp.C + "° C");' },
+					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable', label: "RAM free: " + data.server.memory.percentAvailable + "%", href: 'javascript:showAlternateData("cpuMemory", "RAM free: " + data.server.memory.free + " MB");' },
+					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), version:'left', id:'data.server.cpuusage', label:'CPU: ' + data.server.cpuusage + '%'},
+					{type:'button', color:LCARS.colorGen(uiInactive)},
+					{type:'button', color:LCARS.colorGen(uiInactive), version:'left'},
+					{type:'button', color:LCARS.colorGen(uiInactive)}            
 				]},
 
 				//Bottom Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'AllStar Link', href:'javascript:setContent("https://www.allstarlink.org/");' },
-					{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'BrandMeister', href:'javascript:setContent("https://brandmeister.network/");' },
-					{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'Github', href:'javascript:openTab("https://github.com/JoshuaCarroll/AA5JC-Digital-Analog-Bridge")' },
-					{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Ham VOIP', href:'javascript:setContent("http://hamvoip.org/")' },
-					{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'QRZ', href:'javascript:openTab("https://qrz.com")', state:'ra_g1'},
-					{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Jitsi', href:'javascript:setContent("https://meet.jit.si/fcarc")', state:'ra_g1'},
+					{type:'button', color:LCARS.colorGen(uiInactive), version:'left' },
+					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
+					{type:'button', color:LCARS.colorGen(uiInactive), version:'left' },
+					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
+					{type:'button', color:LCARS.colorGen(uiInactive), version:'left'},
+					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
 				]}
 			]},
 
@@ -146,36 +156,36 @@ function buildNemesisUi() {
 
 				//Elbow & Button
 				{type:'column', flex:'v', children:[
-					{type:'button', color:LCARS.colorGen(uiColors), size:'step-two'},
-					{type:'elbow', version:'bottom-left', color:LCARS.colorGen(uiColors), flexC:'v'}
+					{type:'button', color:LCARS.colorGen(uiBorder), size:'step-two'},
+					{type:'elbow', version:'bottom-left', color:LCARS.colorGen(uiBorder), flexC:'v'}
 				]},
 
 				{type:'wrapper', flexC:'h', flex:'v', children:[
 
 					//Header Content Area
 					{type:'wrapper', version:'content', flexC:'v', children:[
-
+						
 						//Header Title
 						{type:'title', text:'AA5JC Analog-Digital Bridge'},
 
 						//Header Pill Button Group
 						{type:'wrapper', flex:'h', class:'button-wrap', children:[
+{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'Full screen', href:'javascript:toggleFullScreen();'},
+							{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Get data', href:'javascript:getData();'},
 							{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'49960', href:'javascript:setContent("http://10.1.10.10/supermon/link.php?nodes=49960")'},
-							{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'1999', href: 'javascript:setContent("http://10.1.10.10/supermon/link.php?nodes=1999")'},
-							{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'Full screen', href:'javascript:toggleFullScreen();'},
-							{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Get data', href:'javascript:getData();'}
+							{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'1999', href: 'javascript:setContent("http://10.1.10.10/supermon/link.php?nodes=1999")'}
 						]},
 					]},
 
 					//Header Bottom Bars
 					{type:'row', version:'frame', flex:'h', children:[
-						{type:'bar', color:LCARS.colorGen(uiColors)},
-						{type:'bar', color:LCARS.colorGen(uiColors)},
-						{type:'bar', color:LCARS.colorGen(uiColors)},
-						{type:'bar', color:LCARS.colorGen(uiColors), flexC:'h'},
-						{type:'bar', color:LCARS.colorGen(uiColors)},
-						{type:'bar', color:LCARS.colorGen(uiColors)},
-						{type:'bar', color:LCARS.colorGen(uiColors)}
+						{type:'bar', color:LCARS.colorGen(uiBorder)},
+						{type:'bar', color:LCARS.colorGen(uiBorder)},
+						{type:'bar', color:LCARS.colorGen(uiBorder)},
+						{type:'bar', color:LCARS.colorGen(uiBorder), flexC:'h'},
+						{type:'bar', color:LCARS.colorGen(uiBorder)},
+						{type:'bar', color:LCARS.colorGen(uiBorder)},
+						{type:'bar', color:LCARS.colorGen(uiBorder)}
 					]}
 
 				]}
@@ -187,24 +197,24 @@ function buildNemesisUi() {
 
 				//Left Columns & Elbow
 				{type:'wrapper', version:'column', flex:'v', children:[
-					{type:'elbow', version:'top-left', color:LCARS.colorGen(uiColors), class:'step-two'},
-					{type:'button', color:LCARS.colorGen(uiColors)},
-					{type:'button', color:LCARS.colorGen(uiColors), size:'step-two'},
-					{type:'button', color:LCARS.colorGen(uiColors)},
-					{type:'button', color:LCARS.colorGen(uiColors), size:'step-two'},
-					{type:'button', color:LCARS.colorGen(uiColors), flexC:'v'}
+					{type:'elbow', version:'top-left', color:LCARS.colorGen(uiBorder), class:'step-two'},
+					{type:'button', color:LCARS.colorGen(uiColors), label: 'AllStar Link', href:'javascript:setContent("https://www.allstarlink.org/nodelist/");'},
+					{type:'button', color:LCARS.colorGen(uiColors), label:'BrandMeister', href:'javascript:setContent("https://brandmeister.network/");'},
+					{type:'button', color:LCARS.colorGen(uiColors), label:'QRZ Log', href:'javascript:setContent("https://logbook.qrz.com/")' },
+					{type:'button', color:LCARS.colorGen(uiColors), label:'Jitsi', href:'javascript:setContent("https://meet.jit.si/fcarc")'},
+					{type:'button', color:LCARS.colorGen(uiBorder), flexC:'v'}
 				]},
 
 				{type:'column', flexC:'h', flex:'v', children:[
 					//Top Bars Group
 					{type:'row', flex:'h', class:'frame', children:[
-						{type:'bar', color:LCARS.colorGen(uiColors)},
-						{type:'bar', color:LCARS.colorGen(uiColors), version:'small'},
-						{type:'bar', color:LCARS.colorGen(uiColors)},
-						{type:'bar', color:LCARS.colorGen(uiColors), flexC:'h'},
-						{type:'bar', color:LCARS.colorGen(uiColors)},
-						{type:'bar', color:LCARS.colorGen(uiColors)},
-						{type:'bar', color:LCARS.colorGen(uiColors)}
+						{type:'bar', color:LCARS.colorGen(uiBorder)},
+						{type:'bar', color:LCARS.colorGen(uiBorder), version:'small'},
+						{type:'bar', color:LCARS.colorGen(uiBorder)},
+						{type:'bar', color:LCARS.colorGen(uiBorder), flexC:'h'},
+						{type:'bar', color:LCARS.colorGen(uiBorder)},
+						{type:'bar', color:LCARS.colorGen(uiBorder)},
+						{type:'bar', color:LCARS.colorGen(uiBorder)}
 					]},
 
 					//Main Content Wrapper
@@ -257,7 +267,6 @@ function setContent(url) {
 
 $(document).on('ready', function(){
 	$("body").html("");
-	// $(nemesisUI).createObject({appendTo:'body'}); // Called by getData()
 	getData();
 	tmrClock_tick();
 });

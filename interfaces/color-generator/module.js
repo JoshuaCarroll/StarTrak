@@ -4,7 +4,7 @@
 * For more information please go to http://www.lcarssdk.org.
 **/
 
-var uiColors = ['bg-green-3','bg-green-4','bg-blue-2','bg-blue-3','bg-blue-4','bg-grey-3'];
+var uiColors = ['bg-7','bg-8','bg-2','bg-3','bg-4','bg-grey-3'];
    
 //Template for the Bracket Element   
 var bracket = {type:'wrapper', class:'sdk bracket typeA', children:[

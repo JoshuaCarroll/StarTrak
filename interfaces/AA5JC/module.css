@@ -93,13 +93,13 @@
 	position:absolute; 
 	bottom:35px; 
 	right:0px; 
-	width:356px;
+	width:350px;
 }
 
 .header .button-wrap .button{margin-left:5px !important;}
 .header .button-wrap .button:first-child:nth-last-child(2),
 .header .button-wrap .button:first-child:nth-last-child(2) ~ .button{margin-bottom:0px;}
-.header .button-wrap .button:nth-child(3n+1),
+.header .button-wrap .button:nth-child(2n+1),
 .header .button-wrap .button:first-child{margin-left:0px !important;}
 
 
@@ -108,9 +108,9 @@
 .step-three{height:190px;}
 .step-four{height:255px;}
 
+/* ======CUSTOM================================================ */
 .stats-list {
 	width: 300px;
 	float: left;
 }
-  
-     
+

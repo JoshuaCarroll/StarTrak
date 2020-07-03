@@ -7,7 +7,8 @@
 //Base UI Definition
 var visualGuide = {
 		currentView:null,
-		uiColors:['bg-blue-1', 'bg-blue-2','bg-blue-3','bg-blue-4','bg-green-1','bg-green-2','bg-green-3','bg-green-4']
+		uiColors:['bg-2','bg-3','bg-4','bg-5','bg-6'],
+		uiBorder:['bg-1']
 };
 
 //UI Events
@@ -732,29 +733,29 @@ visualGuide.visualGroups = {
 				{type:'htmlTag', tag:'h3', text:'Theme USS Not Affiliated  w/ Red Alert', color:LCARS.colorGen(visualGuide.uiColors).replace('bg-', 'text-')},
 				{type:'row', flex:'h', style:'margin-bottom:30px;', children:[
 					{type:'column', flex:'v', flexC:'h', style:'', children:[
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'99ccff', label:'bg-blue-1', color:'bg-blue-1'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'3399cc', label:'bg-blue-2', color:'bg-blue-2'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'006699', label:'bg-blue-3', color:'bg-blue-3'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'003366', label:'bg-blue-4', color:'bg-blue-4'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'99ccff', label:'bg-1', color:'bg-1'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'3399cc', label:'bg-2', color:'bg-2'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'006699', label:'bg-3', color:'bg-3'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'003366', label:'bg-4', color:'bg-4'},
 						
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'ccddbb', label:'bg-green-1', color:'bg-green-1'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'00cc99', label:'bg-green-2', color:'bg-green-2'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'009999', label:'bg-green-3', color:'bg-green-3'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'006666', label:'bg-green-4', color:'bg-green-4'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'ccddbb', label:'bg-5', color:'bg-5'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'00cc99', label:'bg-6', color:'bg-6'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'009999', label:'bg-7', color:'bg-7'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'006666', label:'bg-8', color:'bg-8'},
 						
 						
 						
 					]},
 					{type:'column', flex:'v', flexC:'h', version:'red-alert', children:[
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'cccccc', label:'bg-blue-1', color:'bg-blue-1'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'999999', label:'bg-blue-2', color:'bg-blue-2'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'cc0000', label:'bg-blue-3', color:'bg-blue-3'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'660000', label:'bg-blue-4', color:'bg-blue-4'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'cccccc', label:'bg-1', color:'bg-1'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'999999', label:'bg-2', color:'bg-2'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'cc0000', label:'bg-3', color:'bg-3'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'660000', label:'bg-4', color:'bg-4'},
 						
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'ffff66', label:'bg-green-1', color:'bg-green-1'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'ff0000', label:'bg-green-2', color:'bg-green-2'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'990000', label:'bg-green-3', color:'bg-green-3'},
-						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'330000', label:'bg-green-4', color:'bg-green-4'},					
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'ffff66', label:'bg-5', color:'bg-5'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'ff0000', label:'bg-6', color:'bg-6'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'990000', label:'bg-7', color:'bg-7'},
+						{type:'complexButton', class:'text-transform-none', template:LCARS.templates.sdk.buttons.complexText.typeG, text:'330000', label:'bg-8', color:'bg-8'},					
 						
 					]},
 				]},
