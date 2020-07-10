@@ -1,17 +1,26 @@
-/** LCARS SDK 16323.311
-* This file is a part of the LCARS SDK.
-* https://github.com/AricwithanA/LCARS-SDK/blob/master/LICENSE.md
-* For more information please go to http://www.lcarssdk.org.
-**/
-
 var uiBorder = ['bg-1'];
 var uiColors = ['bg-2', 'bg-3', 'bg-4', 'bg-3', 'bg-4', 'bg-3', 'bg-4'];
+var uiColorsDark = ['bg-2-dark', 'bg-3-dark', 'bg-4-dark', 'bg-3-dark', 'bg-4-dark', 'bg-3-dark', 'bg-4-dark'];
 var uiInactive = ['bg-7', 'bg-8'];
 
-var data = null;
+var tmrClock = null;
+var data = {
+	location: {
+		latitude:'',
+		longitude:''
+	},
+	server: {
+		cputemp: { F:0,C:0 },
+		memory: { percentAvailable: '100' },
+		cpuusage: 0
+	},
+	timestamp: {time:'0:00'}
+};
+
 function getData() {
 	var request = new XMLHttpRequest();
-	request.open('GET', 'http://10.1.10.10/supermon/jc_stats.php', true);
+	var webAddress = 'http://10.1.10.10/supermon/jc_stats.php';
+	request.open('GET', webAddress, true);
 
 	request.onload = function() {
 		if (request.status >= 200 && request.status < 400) {
@@ -21,28 +30,44 @@ function getData() {
 			// Calculate any values
 			data.server.memory.percentAvailable = Math.round((data.server.memory.free / data.server.memory.total) * 100);
 			data.server.cpuusage = Math.round(((data.server.cpuusage.split("load average: ")[1].split(", ")[1]) * 100) / data.server.cores);
-			
-			if (document.body.innerHTML == "") {
-				buildNemesisUi();
-			}
+			data.location.headerString = data.location.latitude + ', ' + data.location.longitude;
+			data.weather.headerString = data.weather.observation + ", " + data.weather.temperature.F + " (" + data.weather.temperature.C + ")";
+			data.server.ports.headerString = "AllStar (" + data.server.ports.allstar + "), Asterisk (" + data.server.ports.asteriskMgmt + "), SSH (" + data.server.ports.ssh + ")";
 			
 			// Update the page
-			updateField("Temp: ", "data.server.cputemp.F", "° F");
-			updateField("RAM free: ", "data.server.memory.percentAvailable", "%");
-			updateField("CPU usage: ", "data.server.cpuusage", "%");
+			updateField("data.server.cputemp.F", "Temp: ", "° F");
+			updateField("data.server.memory.percentAvailable", "RAM free: ", "%");
+			updateField("data.server.cpuusage", "CPU: ", "%");
+			updateField("data.timestamp.time");
+			updateField("data.location.headerString", "LOCATION: ");
+			updateField("data.location.AMSL", "ALTITUDE: ", " meters");
+			updateField("data.weather.headerString", "WEATHER: ")
+			updateField("data.server.ports.headerString", "PORTS: ");
 		} else {
-			// We reached our target server, but it returned an error
+			console.error("The server returned an error.");
 		}
 	};
 
 	request.onerror = function() {
-		// There was a connection error of some sort
+		console.error("Unable to connect to " + webAddress);
 	};
 
 	request.send();
 }
-function updateField(prefix, variable, suffix){
-	document.getElementById(variable).setAttribute("data-label", prefix + eval(variable) + suffix); 
+function updateField(val, prefix, suffix){
+	if (prefix == null) {prefix = "";}
+	if (suffix == null) {suffix = "";}
+	var el = document.getElementById(val);
+	
+	if (el.hasAttribute("data-label")) {
+		el.setAttribute("data-label", prefix + eval(val) + suffix); 	
+	}
+	else if (el.getElementsByClassName("text").length > 0) {
+		el.getElementsByClassName("text")[0].innerText = prefix + eval(val) + suffix;
+	}
+	else {
+		el.innerText = prefix + eval(val) + suffix;
+	}
 }
 function getStatColor(stat, statValue) {
 	var good = ['bg-2'];
@@ -75,8 +100,6 @@ function toggleFullScreen(event) {
 
 	isFullscreen ? document.cancelFullScreen() : element.requestFullScreen();
 }
-   
-//Template for the Bracket Element   
 var bracket = {type:'wrapper', class:'sdk bracket typeA', children:[
 		{type:'wrapper', class:'content', id:"bracketContents", children: [
 			//{type:'img', src:'st-pi.png'}
@@ -110,8 +133,6 @@ var bracket = {type:'wrapper', class:'sdk bracket typeA', children:[
 		]}
 	]
 };  
-
-//UI Framing.  Uses the Arrive event to trigger the Viewport scaling.
 function buildNemesisUi() {
 	var nemesisUI = {type:'wrapper', id:'wpr_viewport', version:'row', flex:'h', arrive:function(){$(this).viewport('zoom', {width:1920, height:1080});}, children:[
 
@@ -124,12 +145,12 @@ function buildNemesisUi() {
 
 				//Top Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left', id:'data.server.cputemp.F', label: "Temp: " + data.server.cputemp.F + "° F", href: 'javascript:showAlternateData("cpuTemp", "CPU: " + data.server.cputemp.C + "° C");' },
-					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable', label: "RAM free: " + data.server.memory.percentAvailable + "%", href: 'javascript:showAlternateData("cpuMemory", "RAM free: " + data.server.memory.free + " MB");' },
-					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), version:'left', id:'data.server.cpuusage', label:'CPU: ' + data.server.cpuusage + '%'},
+					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left', id:'data.server.cputemp.F', label:'', href: 'javascript:showAlternateData("cpuTemp", "CPU: " + data.server.cputemp.C + "° C");' },
+					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable', label:'', href: 'javascript:showAlternateData("cpuMemory", "RAM free: " + data.server.memory.free + " MB");' },
+					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), version:'left', id:'data.server.cpuusage', label:''},
 					{type:'button', color:LCARS.colorGen(uiInactive)},
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'left'},
-					{type:'button', color:LCARS.colorGen(uiInactive)}            
+					{type:'button', color:LCARS.colorGen(uiInactive)}
 				]},
 
 				//Bottom Button Group
@@ -144,7 +165,7 @@ function buildNemesisUi() {
 			]},
 
 			{type:'column', style:'justify-content: flex-end;', flexC:'v', flex:'v', children:[
-				{type:'complexButton', id:'divClock', text: data.timestamp.time, template:LCARS.templates.sdk.buttons.complexText.typeG, colors:LCARS.colorGroupGen(uiColors, 3)}
+				{type:'complexButton', id:'data.timestamp.time', text: '', template:LCARS.templates.sdk.buttons.complexText.typeG, colors:LCARS.colorGroupGen(uiColors, 3)}
 			]}
 		]},
 
@@ -156,7 +177,6 @@ function buildNemesisUi() {
 
 				//Elbow & Button
 				{type:'column', flex:'v', children:[
-					{type:'button', color:LCARS.colorGen(uiBorder), size:'step-two'},
 					{type:'elbow', version:'bottom-left', color:LCARS.colorGen(uiBorder), flexC:'v'}
 				]},
 
@@ -164,19 +184,31 @@ function buildNemesisUi() {
 
 					//Header Content Area
 					{type:'wrapper', version:'content', flexC:'v', children:[
-						
-						//Header Title
-						{type:'title', text:'AA5JC Analog-Digital Bridge'},
+						{type:'row', flex:'h', children:[
+							{type:'column', class:'headerCol1 text-grey-3', flex:'h', children:[
+								{type:'wrapper', flex:'h', class:'stats', children:[
+									{type:'htmlTag', tag:'ul', children:[
+										{type:'htmlTag', tag:'li', id:'data.location.headerString'},
+										{type:'htmlTag', tag:'li', id:'data.location.AMSL'},
+										{type:'htmlTag', tag:'li', id:'data.weather.headerString'},
+										{type:'htmlTag', tag:'li', id:'data.server.ports.headerString'},
+									]}
+								]}
+							]},
+							{type:'column', class:'headerCol2', flex:'h', children:[
+								//Header Title
+								{type:'title', text:'AA5JC Analog-Digital Bridge', class:'headerTitle'},
 
-						//Header Pill Button Group
-						{type:'wrapper', flex:'h', class:'button-wrap', children:[
-{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'Full screen', href:'javascript:toggleFullScreen();'},
-							{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Get data', href:'javascript:getData();'},
-							{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'49960', href:'javascript:setContent("http://10.1.10.10/supermon/link.php?nodes=49960")'},
-							{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'1999', href: 'javascript:setContent("http://10.1.10.10/supermon/link.php?nodes=1999")'}
-						]},
+								//Header Pill Button Group
+								{type:'wrapper', flex:'h', class:'button-wrap headerButtons', children:[
+									{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'Full screen', href:'javascript:toggleFullScreen();'},
+									{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Get data', href:'javascript:getData();'},
+									{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'49960', href:'javascript:setContent("http://10.1.10.10/supermon/link.php?nodes=49960")'},
+									{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'1999', href: 'javascript:setContent("http://10.1.10.10/supermon/link.php?nodes=1999")'}
+								]}
+							]}	
+						]}
 					]},
-
 					//Header Bottom Bars
 					{type:'row', version:'frame', flex:'h', children:[
 						{type:'bar', color:LCARS.colorGen(uiBorder)},
@@ -187,9 +219,7 @@ function buildNemesisUi() {
 						{type:'bar', color:LCARS.colorGen(uiBorder)},
 						{type:'bar', color:LCARS.colorGen(uiBorder)}
 					]}
-
 				]}
-
 			]},
 
 			//Main Content Area
@@ -198,10 +228,14 @@ function buildNemesisUi() {
 				//Left Columns & Elbow
 				{type:'wrapper', version:'column', flex:'v', children:[
 					{type:'elbow', version:'top-left', color:LCARS.colorGen(uiBorder), class:'step-two'},
-					{type:'button', color:LCARS.colorGen(uiColors), label: 'AllStar Link', href:'javascript:setContent("https://www.allstarlink.org/nodelist/");'},
-					{type:'button', color:LCARS.colorGen(uiColors), label:'BrandMeister', href:'javascript:setContent("https://brandmeister.network/");'},
-					{type:'button', color:LCARS.colorGen(uiColors), label:'QRZ Log', href:'javascript:setContent("https://logbook.qrz.com/")' },
-					{type:'button', color:LCARS.colorGen(uiColors), label:'Jitsi', href:'javascript:setContent("https://meet.jit.si/fcarc")'},
+					{type:'button', id:'btn01', color:LCARS.colorGen(uiColorsDark), label: 'AllStar Link', href:'javascript:setContent("https://www.allstarlink.org/nodelist/", "btn01");'},
+					{type:'button', id:'btn02', color:LCARS.colorGen(uiColorsDark), label:'BrandMeister', href:'javascript:setContent("https://brandmeister.network/", "btn02");'},
+					{type:'button', id:'btn03', color:LCARS.colorGen(uiColorsDark), label:'QRZ Log', href:'javascript:setContent("https://logbook.qrz.com/", "btn03")' },
+					{type:'button', id:'btn04', color:LCARS.colorGen(uiColorsDark), label:'Jitsi', href:'javascript:setContent("https://meet.jit.si/fcarc", "btn04")'},
+					{type:'button', id:'btn05', color:LCARS.colorGen(uiColorsDark), label:'Radar', href:'javascript:setContent("https://embed.windy.com/embed2.html?lat=' + data.location.latitude + '&lon=' + data.location.longitude + '&detailLat=34.769&detailLon=-92.439&zoom=7&level=surface&overlay=radar&product=radar&calendar=now&type=map&location=coordinates&metricWind=mph&metricTemp=%C2%B0F&radarRange=-1", "btn05")'},
+					{type:'button', id:'btn06', color:LCARS.colorGen(uiColorsDark), label:'Ark Dept Health', href:'javascript:setContent("https://experience.arcgis.com/experience/c2ef4a4fcbe5458fbf2e48a21e4fece9", "btn06")'},
+					{type:'button', id:'btn07', color:LCARS.colorGen(uiColorsDark), label:'KARK COVID', href:'javascript:setContent("https://www.kark.com/news/health/coronavirus/confirmed-cases-of-covid-19-in-arkansas-up-to-118/#content", "btn07")'},
+					{type:'button', id:'btn08', color:LCARS.colorGen(uiColorsDark), label:'NWS Chat', href:'javascript:setContent("https://nwschat.weather.gov/live/", "btn08")'},
 					{type:'button', color:LCARS.colorGen(uiBorder), flexC:'v'}
 				]},
 
@@ -233,40 +267,65 @@ function buildNemesisUi() {
 	$("body").html("");
 	$(nemesisUI).createObject({appendTo:'body'});
 }
-
 function getUtcTime() {
 	var now = new Date;
 	var hours = now.getUTCHours().toString() ;
 	var minutes = now.getMinutes().toString();
 	var separator = ":";
-	
 	if (hours.length == 1) { hours = "0" + hours; }
 	if (minutes.length == 1) {minutes = "0" + minutes; }
-	
 	return hours + separator + minutes;
 }
-
 function getMillisecondsLeft() {
 	var now = new Date();
 	var ms = ((60 - now.getSeconds()) * 1000) + (1000 - now.getMilliseconds());
 	return ms;
 }
-
-var tmrClock;
 function tmrClock_tick() {
 	getData();
-	
 	tmrClock = window.setTimeout(function() {
 		tmrClock_tick();
 	}, getMillisecondsLeft());
 }
-
-function setContent(url) {
-	$("#divMainContent").html("<iframe style='height:100%; width:100%' allow='camera;microphone' src='" + url + "'></iframe>");
+function setContent(url, caller) {
+	var iframeName = url.replace(/:/g,"").replace(/\//g,"").replace(/\./g,"");
+	if (iframeName.indexOf("?") > 0) {
+		iframeName = iframeName.substring(0,iframeName.indexOf("?"));
+	}
+	
+	if ( $("#"+iframeName).length ) {
+		if ($("#"+iframeName).is(":visible")) {
+			$("#"+iframeName).remove();
+			setButtonStatus(caller, false);
+		}
+		else {
+			$("iframe").hide();
+			$("#"+iframeName).show();
+			setButtonStatus(caller, true);
+		}
+	}
+	else {
+		setButtonStatus(caller, true);
+		$("iframe").hide();
+		$("#divMainContent").append("<iframe id='" + iframeName + "' allow='camera;microphone' src='" + url + "'></iframe>");
+	}
 }
-
+function setButtonStatus(obj, isEnabled) {
+	console.log(obj);
+	if (obj != null) {
+		if (isEnabled) {
+			var objClass = $("#"+obj).attr("class").replace("-dark","");
+			$("#"+obj).attr("class", objClass);
+		}
+		else {
+			var objClass = $("#"+obj).attr("class") + "-dark";
+			$("#"+obj).attr("class", objClass);
+		}
+	}
+}
 $(document).on('ready', function(){
 	$("body").html("");
+	buildNemesisUi();
 	getData();
 	tmrClock_tick();
 });

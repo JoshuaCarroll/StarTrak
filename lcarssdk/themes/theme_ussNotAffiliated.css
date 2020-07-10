@@ -30,10 +30,23 @@
 	background-color:#93dfff;
 	border-color:#93dfff;	
 }
+.bg-2-dark,
+.bg-2-dark > *:not([class*="bg-"]){
+	background-color:#856b00;
+	border-color:#856b00;	
+}
+.bg-3-dark,
+.bg-3-dark > *:not([class*="bg-"]){
+	background-color:#003257;
+	border-color:#003257;
+}
+.bg-4-dark,
+.bg-4-dark > *:not([class*="bg-"]){
+	background-color:#035f7f;
+	border-color:#035f7f;	
+}
 .bg-5,
 .bg-5 > *:not([class*="bg-"]){
-	/*background-color:#009999;
-	border-color:#009999;	*/
 	background-color: #d77074;
 	border-color: #d77074;
 }
@@ -125,7 +138,7 @@
 
 .text-grey-1{color:#eeeeee;}
 .text-grey-2{color:#cccccc;}
-.text-grey-3{color:#666666;}
+.text-grey-3{color:#aaaaaa;}
 
 .text-white{color:#ffffff;}
 
@@ -190,7 +203,6 @@
    Active/Hover States. Included for optional use.
    ==========================================================================*/
 
-
 .button:hover, 
 .endcap:hover > .cap, 
 .elbow:hover,
@@ -200,3 +212,4 @@
 .endcap:active > .cap, 
 .elbow:active,
 .complexButton:active > *:not(.text){-webkit-animation:none !important;animation:none !important; background-color:#ffffff !important; border-color:#ffffff !important;}
+

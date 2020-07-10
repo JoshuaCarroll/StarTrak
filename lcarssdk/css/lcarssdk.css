@@ -265,7 +265,7 @@ a{
 .text-transform-none > *:after,
 .regularText{text-transform:none;}
 
-p, small, li{	
+p, small, li, label{	
     white-space:normal; 
     margin-bottom:10px;
     -webkit-user-select: text;          
