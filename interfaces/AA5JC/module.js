@@ -289,10 +289,13 @@ function tmrClock_tick() {
 }
 function setContent(url, caller) {
 	var iframeName = url.replace(/:/g,"").replace(/\//g,"").replace(/\./g,"");
-	if (iframeName.indexOf("?") > 0) {
-		iframeName = iframeName.substring(0,iframeName.indexOf("?"));
+	arrCharactersToStopAt = ["?","#"];
+	for (var x = 0; x < arrCharactersToStopAt.length; x++) {
+		if (iframeName.indexOf(arrCharactersToStopAt[x]) > 0) {
+			iframeName = iframeName.substring(0,iframeName.indexOf(arrCharactersToStopAt[x]));
+		}
 	}
-	
+
 	if ( $("#"+iframeName).length ) {
 		if ($("#"+iframeName).is(":visible")) {
 			$("#"+iframeName).remove();
