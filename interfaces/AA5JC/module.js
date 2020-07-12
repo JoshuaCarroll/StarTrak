@@ -1,3 +1,5 @@
+var webAddress = 'http://10.1.10.10/supermon/jc_stats.php';
+
 var uiBorder = ['bg-1'];
 var uiColors = ['bg-2', 'bg-3', 'bg-4', 'bg-3', 'bg-4', 'bg-3', 'bg-4'];
 var uiColorsDark = ['bg-2-dark', 'bg-3-dark', 'bg-4-dark', 'bg-3-dark', 'bg-4-dark', 'bg-3-dark', 'bg-4-dark'];
@@ -14,12 +16,10 @@ var data = {
 		memory: { percentAvailable: '100' },
 		cpuusage: 0
 	},
-	timestamp: {time:'0:00'}
+	timestamp: {time:'00:00'}
 };
-
 function getData() {
 	var request = new XMLHttpRequest();
-	var webAddress = 'http://10.1.10.10/supermon/jc_stats.php';
 	request.open('GET', webAddress, true);
 
 	request.onload = function() {
@@ -132,7 +132,7 @@ var bracket = {type:'wrapper', class:'sdk bracket typeA', children:[
 			{type:'bar', flexC:'v', color:LCARS.colorGen(uiColors)}                     
 		]}
 	]
-};  
+};
 function buildNemesisUi() {
 	var nemesisUI = {type:'wrapper', id:'wpr_viewport', version:'row', flex:'h', arrive:function(){$(this).viewport('zoom', {width:1920, height:1080});}, children:[
 
@@ -145,8 +145,8 @@ function buildNemesisUi() {
 
 				//Top Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left', id:'data.server.cputemp.F', label:'', href: 'javascript:showAlternateData("cpuTemp", "CPU: " + data.server.cputemp.C + "° C");' },
-					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable', label:'', href: 'javascript:showAlternateData("cpuMemory", "RAM free: " + data.server.memory.free + " MB");' },
+					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left', id:'data.server.cputemp.F', label:'', href: 'javascript:showAlternateData("data.server.cputemp.F", "CPU: " + data.server.cputemp.C + "° C");' },
+					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable', label:'', href: 'javascript:showAlternateData("data.server.memory.percentAvailable", "RAM free: " + data.server.memory.free + " MB");' },
 					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), version:'left', id:'data.server.cpuusage', label:''},
 					{type:'button', color:LCARS.colorGen(uiInactive)},
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'left'},
@@ -165,7 +165,7 @@ function buildNemesisUi() {
 			]},
 
 			{type:'column', style:'justify-content: flex-end;', flexC:'v', flex:'v', children:[
-				{type:'complexButton', id:'data.timestamp.time', text: '', template:LCARS.templates.sdk.buttons.complexText.typeG, colors:LCARS.colorGroupGen(uiColors, 3)}
+				{type:'complexButton', id:'data.timestamp.time', text: '00:00', template:LCARS.templates.sdk.buttons.complexText.typeG, colors:LCARS.colorGroupGen(uiColors, 3)}
 			]}
 		]},
 
@@ -314,7 +314,6 @@ function setContent(url, caller) {
 	}
 }
 function setButtonStatus(obj, isEnabled) {
-	console.log(obj);
 	if (obj != null) {
 		if (isEnabled) {
 			var objClass = $("#"+obj).attr("class").replace("-dark","");
