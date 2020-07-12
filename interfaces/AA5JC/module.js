@@ -104,7 +104,7 @@ var bracket = {type:'wrapper', class:'sdk bracket typeA', children:[
 		{type:'wrapper', class:'content', id:"bracketContents", children: [
 			//{type:'img', src:'st-pi.png'}
 			{type:'htmlTag', tag:'div', text:'', 
-			 style:'background-image: url("ufp.png"); background-size:contain; background-repeat: no-repeat; background-position: center center; height:100%; width:100%', 
+			 style:'background-image: url("/interfaces/AA5JC/ufp.png"); background-size:contain; background-repeat: no-repeat; background-position: center center; height:100%; width:100%', 
 			 color:LCARS.colorGen(uiColors).replace('bg-', 'text-')}
 		]},
 		{type:'elbow', version:'top-left', size:'small', color:LCARS.colorGen(uiColors), children:[{type:'bar'}], noEvent:true},	
