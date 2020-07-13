@@ -35,9 +35,9 @@ function getData() {
 			data.server.ports.headerString = "AllStar (" + data.server.ports.allstar + "), Asterisk (" + data.server.ports.asteriskMgmt + "), SSH (" + data.server.ports.ssh + ")";
 			
 			// Update the page
-			updateField("data.server.cputemp.F", "Temp: ", "° F");
+			updateField("data.server.cputemp.F", "CPU temp: ", "° F");
 			updateField("data.server.memory.percentAvailable", "RAM free: ", "%");
-			updateField("data.server.cpuusage", "CPU: ", "%");
+			updateField("data.server.cpuusage", "CPU used: ", "%");
 			updateField("data.timestamp.time");
 			updateField("data.location.headerString", "LOCATION: ");
 			updateField("data.location.AMSL", "ALTITUDE: ", " meters");
@@ -145,7 +145,7 @@ function buildNemesisUi() {
 
 				//Top Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left', id:'data.server.cputemp.F', label:'', href: 'javascript:showAlternateData("data.server.cputemp.F", "CPU: " + data.server.cputemp.C + "° C");' },
+					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left', id:'data.server.cputemp.F', label:'', href: 'javascript:showAlternateData("data.server.cputemp.F", "CPU temp: " + data.server.cputemp.C + "° C");' },
 					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable', label:'', href: 'javascript:showAlternateData("data.server.memory.percentAvailable", "RAM free: " + data.server.memory.free + " MB");' },
 					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), version:'left', id:'data.server.cpuusage', label:''},
 					{type:'button', color:LCARS.colorGen(uiInactive)},
@@ -155,7 +155,7 @@ function buildNemesisUi() {
 
 				//Bottom Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(uiInactive), version:'left' },
+					{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'AA5JC?', href: 'javascript:setContent("https://qrz.com/db/aa5jc")' },
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'left' },
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
@@ -236,7 +236,6 @@ function buildNemesisUi() {
 					{type:'button', id:'btn06', color:LCARS.colorGen(uiColorsDark), label:'Ark Dept Health', href:'javascript:setContent("https://experience.arcgis.com/experience/c2ef4a4fcbe5458fbf2e48a21e4fece9", "btn06")'},
 					{type:'button', id:'btn07', color:LCARS.colorGen(uiColorsDark), label:'KARK COVID', href:'javascript:setContent("https://www.kark.com/news/health/coronavirus/confirmed-cases-of-covid-19-in-arkansas-up-to-118/#content", "btn07")'},
 					{type:'button', id:'btn08', color:LCARS.colorGen(uiColorsDark), label:'NWS Chat', href:'javascript:setContent("https://nwschat.weather.gov/live/", "btn08")'},
-					{type:'button', id:'btn08', color:LCARS.colorGen(uiColorsDark), label:'NWS Chat', href:'javascript:setContent("https://tv.youtube.com/", "btn08")'},
 					{type:'button', color:LCARS.colorGen(uiBorder), flexC:'v'}
 				]},
 
