@@ -155,7 +155,7 @@ function buildNemesisUi() {
 
 				//Bottom Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'AA5JC?', href: 'javascript:setContent("https://qrz.com/db/aa5jc")' },
+					{type:'button', color:LCARS.colorGen(uiColors), version:'left' },
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'left' },
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
