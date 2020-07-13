@@ -236,6 +236,7 @@ function buildNemesisUi() {
 					{type:'button', id:'btn06', color:LCARS.colorGen(uiColorsDark), label:'Ark Dept Health', href:'javascript:setContent("https://experience.arcgis.com/experience/c2ef4a4fcbe5458fbf2e48a21e4fece9", "btn06")'},
 					{type:'button', id:'btn07', color:LCARS.colorGen(uiColorsDark), label:'KARK COVID', href:'javascript:setContent("https://www.kark.com/news/health/coronavirus/confirmed-cases-of-covid-19-in-arkansas-up-to-118/#content", "btn07")'},
 					{type:'button', id:'btn08', color:LCARS.colorGen(uiColorsDark), label:'NWS Chat', href:'javascript:setContent("https://nwschat.weather.gov/live/", "btn08")'},
+					{type:'button', id:'btn08', color:LCARS.colorGen(uiColorsDark), label:'NWS Chat', href:'javascript:setContent("https://tv.youtube.com/", "btn08")'},
 					{type:'button', color:LCARS.colorGen(uiBorder), flexC:'v'}
 				]},
 
