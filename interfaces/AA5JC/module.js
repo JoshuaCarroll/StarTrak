@@ -1,4 +1,4 @@
-var webAddress = 'http://10.1.10.10/supermon/jc_stats.php';
+var webAddress = '://aa5jc.ngrok.io/supermon/jc_stats.php';
 
 var uiBorder = ['bg-1'];
 var uiColors = ['bg-2', 'bg-3', 'bg-4', 'bg-3', 'bg-4', 'bg-3', 'bg-4'];
@@ -155,10 +155,10 @@ function buildNemesisUi() {
 
 				//Bottom Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(uiColors), version:'left' },
-					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
-					{type:'button', color:LCARS.colorGen(uiInactive), version:'left' },
-					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
+					{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'HamVOIP', href:'javascript:window.open("https://hamvoip.org/");' },
+					{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'LCARS SDK', href:'javascript:window.open("https://github.com/Aricwithana/LCARS-SDK/");' },
+					{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'ngrok', href:'javascript:window.open("https://ngrok.com/");' },
+					{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Let\'s Encrypt', href:'javascript:window.open("https://letsencrypt.org/");' },
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'left'},
 					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
 				]}
