@@ -197,7 +197,7 @@ function buildNemesisUi() {
 							]},
 							{type:'column', class:'headerCol2', flex:'h', children:[
 								//Header Title
-								{type:'title', text:'AA5JC Analog-Digital Bridge', class:'headerTitle'},
+								{type:'title', text:'AA5JC', class:'headerTitle'},
 
 								//Header Pill Button Group
 								{type:'wrapper', flex:'h', class:'button-wrap headerButtons', children:[
