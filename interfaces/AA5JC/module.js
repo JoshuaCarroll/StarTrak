@@ -159,8 +159,8 @@ function buildNemesisUi() {
 					{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'LCARS SDK', href:'javascript:window.open("https://github.com/Aricwithana/LCARS-SDK/");' },
 					{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'ngrok', href:'javascript:window.open("https://ngrok.com/");' },
 					{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Let\'s Encrypt', href:'javascript:window.open("https://letsencrypt.org/");' },
-					{type:'button', color:LCARS.colorGen(uiInactive), version:'left'},
-					{type:'button', color:LCARS.colorGen(uiInactive), version:'button' },
+					{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'Github', href:'javascript:window.open("https://github.com/JoshuaCarroll/StarTrak")'},
+					{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Appveyor', href:'javascript:window.open("https://ci.appveyor.com/project/JoshuaCarroll/startrak")' },
 				]}
 			]},
 
