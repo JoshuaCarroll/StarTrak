@@ -7,6 +7,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script type="text/javascript">
+		if (location.protocol !== 'https:') {
+			location.replace(`https:${location.href.substring(location.protocol.length)}`);
+		}
+	</script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
