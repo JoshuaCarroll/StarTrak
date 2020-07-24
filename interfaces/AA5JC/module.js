@@ -145,11 +145,13 @@ function buildNemesisUi() {
 
 				//Top Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
+					{type:'button', color:LCARS.colorGen(uiColors), label:'Pi', version:'left'},
+					{type:'button', color:LCARS.colorGen(uiColors), label:'Hub'},
 					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left', id:'data.server.cputemp.F', label:'', href: 'javascript:showAlternateData("data.server.cputemp.F", "CPU temp: " + data.server.cputemp.C + "° C");' },
-					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable', label:'', href: 'javascript:showAlternateData("data.server.memory.percentAvailable", "RAM free: " + data.server.memory.free + " MB");' },
+					{type:'button', color:LCARS.colorGen(uiInactive)},
 					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), version:'left', id:'data.server.cpuusage', label:''},
 					{type:'button', color:LCARS.colorGen(uiInactive)},
-					{type:'button', color:LCARS.colorGen(uiInactive), version:'left'},
+					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), version:'left', id: 'data.server.memory.percentAvailable', label:'', href: 'javascript:showAlternateData("data.server.memory.percentAvailable", "RAM free: " + data.server.memory.free + " MB");' },
 					{type:'button', color:LCARS.colorGen(uiInactive)}
 				]},
 
