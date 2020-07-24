@@ -204,7 +204,7 @@ function buildNemesisUi() {
 									{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'Full screen', href:'javascript:toggleFullScreen();'},
 									{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Get data', href:'javascript:getData();'},
 									{type:'button', color:LCARS.colorGen(uiInactive), version:'left', label:'' },
-									{type:'button', color:LCARS.colorGen(uiColorsDark), version:'button', label:'Digital Bridge', href: 'javascript:setContent("https://digitalbridge.southcentralus.cloudapp.azure.com/allmon2/link.php?nodes=499601")'}
+									{type:'button', color:LCARS.colorGen(uiInactive), version:'button', label:''}
 								]}
 							]}	
 						]}
@@ -228,6 +228,7 @@ function buildNemesisUi() {
 				//Left Columns & Elbow
 				{type:'wrapper', version:'column', flex:'v', children:[
 					{type:'elbow', version:'top-left', color:LCARS.colorGen(uiBorder), class:'step-two'},
+					{type:'button', id:'btn00', color:LCARS.colorGen(uiColorsDark), label: 'Digital bridge', href:'javascript:setContent("https://digitalbridge.southcentralus.cloudapp.azure.com/allmon2/link.php?nodes=499601")'},
 					{type:'button', id:'btn01', color:LCARS.colorGen(uiColorsDark), label: 'AllStar Link', href:'javascript:setContent("https://www.allstarlink.org/nodelist/", "btn01");'},
 					{type:'button', id:'btn02', color:LCARS.colorGen(uiColorsDark), label:'BrandMeister', href:'javascript:setContent("https://brandmeister.network/", "btn02");'},
 					{type:'button', id:'btn03', color:LCARS.colorGen(uiColorsDark), label:'QRZ Log', href:'javascript:setContent("https://logbook.qrz.com/", "btn03")' },
