@@ -203,8 +203,8 @@ function buildNemesisUi() {
 								{type:'wrapper', flex:'h', class:'button-wrap headerButtons', children:[
 									{type:'button', color:LCARS.colorGen(uiColors), version:'left', label:'Full screen', href:'javascript:toggleFullScreen();'},
 									{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Get data', href:'javascript:getData();'},
-									{type:'button', color:LCARS.colorGen(uiInactive), version:'left', label:'', href:''},
-									{type:'button', color:LCARS.colorGen(uiColors), version:'button', label:'Digital Bridge', href: 'javascript:setContent("https://digitalbridge.southcentralus.cloudapp.azure.com/allmon2/link.php?nodes=499601")'}
+									{type:'button', color:LCARS.colorGen(uiInactive), version:'left', label:'' },
+									{type:'button', color:LCARS.colorGen(uiColorsDark), version:'button', label:'Digital Bridge', href: 'javascript:setContent("https://digitalbridge.southcentralus.cloudapp.azure.com/allmon2/link.php?nodes=499601")'}
 								]}
 							]}	
 						]}
