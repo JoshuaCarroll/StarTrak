@@ -25,6 +25,7 @@ function getData() {
 	request.onload = function() {
 		if (request.status >= 200 && request.status < 400) {
 			// Success!
+			$("body").removeClass("red-alert");
 			data = JSON.parse(request.responseText);
 			
 			// Calculate any values
@@ -45,6 +46,7 @@ function getData() {
 			updateField("data.server.ports.headerString", "PORTS: ");
 		} else {
 			console.error("The server returned an error.");
+			$("body").addClass("red-alert");
 		}
 	};
 
