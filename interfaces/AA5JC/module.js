@@ -52,6 +52,7 @@ function getData() {
 
 	request.onerror = function() {
 		console.error("Unable to connect to " + webAddress);
+		$("body").addClass("red-alert");
 	};
 
 	request.send();
