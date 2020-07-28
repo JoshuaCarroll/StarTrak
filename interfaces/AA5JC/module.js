@@ -1,4 +1,4 @@
-var webAddress = '//aa5jc.ngrok.io/supermon/jc_stats.php';
+var webAddress = 'https://digitalbridge.southcentralus.cloudapp.azure.com/stats.php';
 
 var uiBorder = ['bg-1'];
 var uiColors = ['bg-2', 'bg-3', 'bg-4', 'bg-3', 'bg-4', 'bg-3', 'bg-4'];
