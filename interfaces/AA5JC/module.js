@@ -27,6 +27,7 @@ function getData() {
 			// Success!
 			$("body").removeClass("red-alert");
 			data = JSON.parse(request.responseText);
+			console.log(data);
 			
 			// Calculate any values
 			data.server.memory.percentAvailable = Math.round((data.server.memory.free / data.server.memory.total) * 100);
