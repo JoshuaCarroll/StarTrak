@@ -16,9 +16,9 @@ var data = {
 		memory: { percentAvailable: '100' },
 		cpuusage: 0,
 		services: {
-			analogbridge: '',
-			mmdvmBridge: '',
-			md380Emulator: ''
+			analogbridge: 'active',
+			mmdvmBridge: 'active',
+			md380Emulator: 'active'
 		}
 	},
 	timestamp: {time:'00:00'}
@@ -303,6 +303,7 @@ function getMillisecondsLeft() {
 	return ms;
 }
 function tmrClock_tick() {
+	buildNemesisUi();
 	getData();
 	tmrClock = window.setTimeout(function() {
 		tmrClock_tick();
@@ -349,7 +350,6 @@ function setButtonStatus(obj, isEnabled) {
 $(document).on('ready', function(){
 	$("body").html("");
 	buildNemesisUi();
-	getData();
 	tmrClock_tick();
 	setContent("https://digitalbridge.southcentralus.cloudapp.azure.com/allmon2/link.php?nodes=499601", "btn00");
 });
