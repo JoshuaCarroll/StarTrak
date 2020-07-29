@@ -35,14 +35,12 @@ function getData() {
 			data.weather.headerString = data.weather.observation + ", " + data.weather.temperature.F + " (" + data.weather.temperature.C + ")";
 			
 			// Update the page
-			updateField("data.server.cputemp.F", "CPU temp: ", "° F");
 			updateField("data.server.memory.percentAvailable", "RAM free: ", "%");
 			updateField("data.server.cpuusage", "CPU used: ", "%");
 			updateField("data.timestamp.time");
 			updateField("data.location.headerString", "LOCATION: ");
 			updateField("data.location.AMSL", "ALTITUDE: ", " meters");
 			updateField("data.weather.headerString", "WEATHER: ")
-			updateField("data.server.ports.headerString", "PORTS: ");
 		} else {
 			console.error("The server returned an error.");
 			$("body").addClass("red-alert");
@@ -148,8 +146,8 @@ function buildNemesisUi() {
 				//Top Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
 					{type:'button', color:LCARS.colorGen(uiColors), label:'Pi', version:'left'},
-					{type:'button', color:LCARS.colorGen(uiColors), label:'Hub'},
-					{type:'button', color:LCARS.colorGen(getStatColor('temp',data.server.cputemp.F)), version:'left', id:'data.server.cputemp.F', label:'', href: 'javascript:showAlternateData("data.server.cputemp.F", "CPU temp: " + data.server.cputemp.C + "° C");' },
+					{type:'button', color:LCARS.colorGen(uiColors), label:'Server Stats'},
+					{type:'button', color:LCARS.colorGen(uiInactive), version:'left', label:'' },
 					{type:'button', color:LCARS.colorGen(uiInactive)},
 					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), version:'left', id:'data.server.cpuusage', label:''},
 					{type:'button', color:LCARS.colorGen(uiInactive)},
