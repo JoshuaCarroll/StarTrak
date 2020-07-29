@@ -33,7 +33,6 @@ function getData() {
 			data.server.cpuusage = Math.round(((data.server.cpuusage.split("load average: ")[1].split(", ")[1]) * 100) / data.server.cores);
 			data.location.headerString = data.location.latitude + ', ' + data.location.longitude;
 			data.weather.headerString = data.weather.observation + ", " + data.weather.temperature.F + " (" + data.weather.temperature.C + ")";
-			data.server.ports.headerString = "AllStar (" + data.server.ports.allstar + "), Asterisk (" + data.server.ports.asteriskMgmt + "), SSH (" + data.server.ports.ssh + ")";
 			
 			// Update the page
 			updateField("data.server.cputemp.F", "CPU temp: ", "° F");
