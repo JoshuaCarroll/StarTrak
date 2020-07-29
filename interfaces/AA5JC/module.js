@@ -27,7 +27,6 @@ function getData() {
 			// Success!
 			$("body").removeClass("red-alert");
 			data = JSON.parse(request.responseText);
-			console.log(data);
 			
 			// Calculate any values
 			data.server.memory.percentAvailable = Math.round((data.server.memory.free / data.server.memory.total) * 100);
@@ -42,6 +41,10 @@ function getData() {
 			updateField("data.location.headerString", "LOCATION: ");
 			updateField("data.location.AMSL", "ALTITUDE: ", " meters");
 			updateField("data.weather.headerString", "WEATHER: ")
+			updateField("data.server.services.analogbridge", "Analog Bridge", "", true);
+			updateField("data.server.services.mmdvmBridge", "MMDVM Bridge", "", true);
+			updateField("data.server.services.md380Emulator", "MD380 Emulator", "", true);
+			
 		} else {
 			console.error("The server returned an error.");
 			$("body").addClass("red-alert");
@@ -55,9 +58,12 @@ function getData() {
 
 	request.send();
 }
-function updateField(val, prefix, suffix){
+function updateField(val, prefix, suffix, dontIncludeValue){
 	if (prefix == null) {prefix = "";}
 	if (suffix == null) {suffix = "";}
+	if (dontIncludeValue == null) { dontIncludeValue = false; }
+	if (dontIncludeValue) { val =""; }
+	
 	var el = document.getElementById(val);
 	
 	if (el.hasAttribute("data-label")) {
@@ -149,11 +155,11 @@ function buildNemesisUi() {
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
 					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), id:'data.server.cpuusage', version:'left' },
 					{type:'button', color:LCARS.colorGen(getStatColor('memoryPercentAvailable',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable' },
-					//{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.analogbridge)), id: 'data.server.services.analogbridge', version:'left' },
+					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.analogbridge)), id: 'data.server.services.analogbridge', version:'left' },
 					{type:'button', color:LCARS.colorGen(getStatColor('memoryAvailable',data.server.memory.available)), id: 'data.server.memory.available' },
-					//{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.mmdvmBridge)), id: 'data.server.services.mmdvmBridge', version:'left' },
+					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.mmdvmBridge)), id: 'data.server.services.mmdvmBridge', version:'left' },
 					{type:'button', color:LCARS.colorGen(getStatColor('memoryFree',data.server.memory.free)), id: 'data.server.memory.free' },
-					//{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.md380Emulator)), id: 'data.server.services.md380Emulator', version:'left' },
+					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.md380Emulator)), id: 'data.server.services.md380Emulator', version:'left' },
 					{type:'button', color:LCARS.colorGen(uiInactive)}
 				]},
 
