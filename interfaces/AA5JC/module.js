@@ -95,7 +95,7 @@ function getStatColor(stat, statValue) {
 	if (stat == "temp" && statValue > 170) { rtn = bad; }
 	if (stat == "memoryPercentAvailable" && statValue < 40) { rtn = bad; }
 	if (stat == "cpu" && statValue > 70) { rtn = bad; }
-	if (stat == "service" && statValue != "active") { rtn = bad; }
+	if (stat == "service" && statValue != "active") { rtn = bad; console.log("BAD... statValue = " + statValue); }
 	
 	return rtn;
 }
