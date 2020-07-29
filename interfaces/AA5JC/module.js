@@ -76,8 +76,9 @@ function getStatColor(stat, statValue) {
 	var rtn = good;
 	
 	if (stat == "temp" && statValue > 170) { rtn = bad; }
-	if (stat == "memory" && statValue < 40) { rtn = bad; }
+	if (stat == "memoryPercentAvailable" && statValue < 40) { rtn = bad; }
 	if (stat == "cpu" && statValue > 70) { rtn = bad; }
+	if (stat == "service" && statValue != "active") { rtn = bad; }
 	
 	return rtn;
 }
@@ -145,13 +146,13 @@ function buildNemesisUi() {
 
 				//Top Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(uiColors), label:'Pi', version:'left'},
-					{type:'button', color:LCARS.colorGen(uiColors), label:'Server Stats'},
-					{type:'button', color:LCARS.colorGen(uiInactive), version:'left', label:'' },
-					{type:'button', color:LCARS.colorGen(uiInactive)},
-					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), version:'left', id:'data.server.cpuusage', label:''},
-					{type:'button', color:LCARS.colorGen(uiInactive)},
-					{type:'button', color:LCARS.colorGen(getStatColor('memory',data.server.memory.percentAvailable)), version:'left', id: 'data.server.memory.percentAvailable', label:'', href: 'javascript:showAlternateData("data.server.memory.percentAvailable", "RAM free: " + data.server.memory.free + " MB");' },
+					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), id:'data.server.cpuusage', version:'left' },
+					{type:'button', color:LCARS.colorGen(getStatColor('memoryPercentAvailable',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable' },
+					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.analogbridge)), id: 'data.server.services.analogbridge', version:'left' },
+					{type:'button', color:LCARS.colorGen(getStatColor('memoryAvailable',data.server.memory.available)), id: 'data.server.memory.available' },
+					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.mmdvmBridge)), id: 'data.server.services.mmdvmBridge', version:'left' },
+					{type:'button', color:LCARS.colorGen(getStatColor('memoryFree',data.server.memory.free)), id: 'data.server.memory.free' },
+					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.md380Emulator)), id: 'data.server.services.md380Emulator', version:'left' },
 					{type:'button', color:LCARS.colorGen(uiInactive)}
 				]},
 
