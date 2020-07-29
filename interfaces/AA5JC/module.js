@@ -158,13 +158,13 @@ function buildNemesisUi() {
 
 				//Top Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), id:'data.server.cpuusage', version:'left' },
-					{type:'button', color:LCARS.colorGen(getStatColor('memoryPercentAvailable',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable' },
-					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.analogbridge)), id: 'data.server.services.analogbridge', version:'left' },
-					{type:'button', color:LCARS.colorGen(getStatColor('memoryAvailable',data.server.memory.available)), id: 'data.server.memory.available' },
-					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.mmdvmBridge)), id: 'data.server.services.mmdvmBridge', version:'left' },
-					{type:'button', color:LCARS.colorGen(getStatColor('memoryFree',data.server.memory.free)), id: 'data.server.memory.free' },
-					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.md380Emulator)), id: 'data.server.services.md380Emulator', version:'left' },
+					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), id:'data.server.cpuusage', version:'left', label:'0' },
+					{type:'button', color:LCARS.colorGen(getStatColor('memoryPercentAvailable',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable', label:'0' },
+					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.analogbridge)), id: 'data.server.services.analogbridge', version:'left', label:'0' },
+					{type:'button', color:LCARS.colorGen(getStatColor('memoryAvailable',data.server.memory.available)), id: 'data.server.memory.available', label:'0' },
+					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.mmdvmBridge)), id: 'data.server.services.mmdvmBridge', version:'left', label:'0' },
+					{type:'button', color:LCARS.colorGen(getStatColor('memoryFree',data.server.memory.free)), id: 'data.server.memory.free', label:'0' },
+					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.md380Emulator)), id: 'data.server.services.md380Emulator', version:'left', label:'0' },
 					{type:'button', color:LCARS.colorGen(uiInactive)}
 				]},
 
