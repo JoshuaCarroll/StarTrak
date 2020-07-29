@@ -303,7 +303,6 @@ function getMillisecondsLeft() {
 	return ms;
 }
 function tmrClock_tick() {
-	buildNemesisUi();
 	getData();
 	tmrClock = window.setTimeout(function() {
 		tmrClock_tick();
