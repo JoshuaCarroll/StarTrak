@@ -63,26 +63,27 @@ function getData() {
 
 	request.send();
 }
-function updateField(val, prefix, suffix, dontIncludeValue){
+function updateField(id, prefix, suffix, dontIncludeValue){
+	var val = "";
 	if (prefix == null) {prefix = "";}
 	if (suffix == null) {suffix = "";}
 	if (dontIncludeValue == null) { dontIncludeValue = false; }
-	if (dontIncludeValue) { val =""; }
+	if (!dontIncludeValue) { val = eval(id); }
 	
-	var el = document.getElementById(val);
+	var el = document.getElementById(id);
 	if (el != null) {
 		if (el.hasAttribute("data-label")) {
-			el.setAttribute("data-label", prefix + eval(val) + suffix); 	
+			el.setAttribute("data-label", prefix + val + suffix); 	
 		}
 		else if (el.getElementsByClassName("text").length > 0) {
-			el.getElementsByClassName("text")[0].innerText = prefix + eval(val) + suffix;
+			el.getElementsByClassName("text")[0].innerText = prefix + val + suffix;
 		}
 		else {
-			el.innerText = prefix + eval(val) + suffix;
+			el.innerText = prefix + val + suffix;
 		}
 	}
 	else {
-		console.log('document.getElementById(' + val + ') is null');
+		console.log('document.getElementById(' + id + ') is null');
 	}
 }
 function getStatColor(stat, statValue) {
