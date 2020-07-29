@@ -14,7 +14,12 @@ var data = {
 	server: {
 		cputemp: { F:0,C:0 },
 		memory: { percentAvailable: '100' },
-		cpuusage: 0
+		cpuusage: 0,
+		services: {
+			analogbridge: '',
+			mmdvmBridge: '',
+			md380Emulator: ''
+		}
 	},
 	timestamp: {time:'00:00'}
 };
