@@ -70,15 +70,19 @@ function updateField(val, prefix, suffix, dontIncludeValue){
 	if (dontIncludeValue) { val =""; }
 	
 	var el = document.getElementById(val);
-	
-	if (el.hasAttribute("data-label")) {
-		el.setAttribute("data-label", prefix + eval(val) + suffix); 	
-	}
-	else if (el.getElementsByClassName("text").length > 0) {
-		el.getElementsByClassName("text")[0].innerText = prefix + eval(val) + suffix;
+	if (el != null) {
+		if (el.hasAttribute("data-label")) {
+			el.setAttribute("data-label", prefix + eval(val) + suffix); 	
+		}
+		else if (el.getElementsByClassName("text").length > 0) {
+			el.getElementsByClassName("text")[0].innerText = prefix + eval(val) + suffix;
+		}
+		else {
+			el.innerText = prefix + eval(val) + suffix;
+		}
 	}
 	else {
-		el.innerText = prefix + eval(val) + suffix;
+		console.log('document.getElementById(' + val + ') is null');
 	}
 }
 function getStatColor(stat, statValue) {
