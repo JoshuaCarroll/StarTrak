@@ -165,7 +165,7 @@ function buildNemesisUi() {
 
 				//Top Button Group
 				{type:'wrapper', flex:'h', version:'button-wrap', children:[
-					{type:'button', color:LCARS.colorGen(uiColors), label:'Services', version:'left'}
+					{type:'button', color:LCARS.colorGen(uiColors), label:'Services', version:'left'},
 					{type:'button', color:LCARS.colorGen(getStatColor('cpu',data.server.cpuusage)), id:'data.server.cpuusage', label:''},
 					{type:'button', color:LCARS.colorGen(getStatColor('memoryPercentAvailable',data.server.memory.percentAvailable)), id: 'data.server.memory.percentAvailable', label:'', version:'left' },
 					{type:'button', color:LCARS.colorGen(getStatColor('service',data.server.services.analogbridge)), id: 'data.server.services.analogbridge', label:'' },
