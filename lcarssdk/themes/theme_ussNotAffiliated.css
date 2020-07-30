@@ -119,6 +119,13 @@
 	border-color:#000000;
 }
 
+/* Colors for status */
+
+.status-good-1 {background-color:#4ede8c; border-color: #4ede8c;}
+.status-good-2 {background-color:#00cc99; border-color: #00cc99;}
+.status-good-3 {background-color:#34995f; border-color: #34995f;}
+.status-good-4 {background-color:#267347; border-color: #267347;}
+
 
 /* Colors for Text */
 

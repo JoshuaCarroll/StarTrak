@@ -87,7 +87,7 @@ function updateField(id, prefix, suffix, dontIncludeValue){
 	}
 }
 function getStatColor(stat, statValue) {
-	var good = ['bg-2'];
+	var good = ['status-good-1', 'status-good-2', 'status-good-3', 'status-good-4'];
 	var bad = ['bg-red-1','bg-red-2'];
 	
 	var rtn = good;
